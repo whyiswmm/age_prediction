@@ -17,7 +17,7 @@ class AgeEstimator():
             self.face_size = (face_size, face_size)
         else:
             self.face_size = face_size   
-        self.device = 'cuda' # 默认有cuda，不cuda就直接报错吧
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         repo_name = 'lora_model'
         config = PeftConfig.from_pretrained(repo_name)
         # base_model_name_or_path = 'nateraw/vit-age-classifier'
@@ -94,7 +94,6 @@ class AgeEstimator():
         preds = proba.argmax(1) # Predicted Classes
 
         a = {'0': "0-2", '1': "3-9", '2':  "10-14", '3': "15-18", '4': "19-29", '5': "30-39", '6': "40-49", '7': "50-59", '8': "60-69", '9': "more than 70"}
-        # a = {'0': "0-2", '1': "3-9", '2':  "10-19", '3': "20-29", '4': "30-39", '5': "40-49", '6': "50-59", '7': "60-69", '8': "more than 70"}
         underage_show = 0
         for i, box in enumerate(bboxes): 
             box = np.clip(box, 0, np.inf).astype(np.uint32)
