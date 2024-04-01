@@ -10,7 +10,7 @@ import glob
 
 def get_frame(path, model):
     count = 1
-    filename = 'test_jsy_0326'
+    filename = 'yisi'
     model.count_zero(filename)
 
     jpg_files = glob.glob(os.path.join(path, "*.jpg"))  
@@ -19,12 +19,14 @@ def get_frame(path, model):
     all_photo_files = jpg_files + png_files  
       
     for photo_file in tqdm(all_photo_files):  
-        image = Image.open(photo_file)
-        predicted_image, _ = model.predict(image)
-        # mpimg.imsave(f'test_jsy_0327/output_adults_{count}.png',predicted_image)
+        image = Image.open(photo_file).convert("RGB")
+        predicted_image, save = model.predict(image)
+        if save:
+            mpimg.imsave(f'yangli/{count}.png',predicted_image)
+            # os.remove(photo_file)
         count += 1
     records = model.get_record()
-    with open('0327_test_jsy_output.txt', 'a') as f:
+    with open('yisi_0329.txt', 'a') as f:
         f.write(records)  
 
 
@@ -34,7 +36,7 @@ def main(path):
     get_frame(path, model)
 
 if __name__=="__main__":
-    path = '/DATA/jupyter/personal/dataset/test_from_jsy/val_data_holepicture/adults'
+    path = 'yisi_0329'
     main(path)
-    path = '/DATA/jupyter/personal/dataset/test_from_jsy/val_data_holepicture/minors'
-    main(path)
+    # path = '/DATA/jupyter/personal/dataset/test_from_jsy/val_data_holepicture/minors'
+    # main(path)

@@ -1,4 +1,13 @@
-lora_age/*
+lora_finetune/*
 __pycache__/*
 .ipynb_checkpoints/*
 nateraw/*
+yisi_0329/
+2000sample.txt
+text.ipynb
+test_folder.py
+test_img.py
+test_video.py
+test_wrong.py
+
+

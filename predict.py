@@ -26,9 +26,10 @@ class AgeEstimator():
             self.face_size = face_size   
         self.device = 'cuda' # 默认有cuda，不cuda就直接报错吧
         repo_name = 'lora_model_100_epoch_10fenlei_0325'
-        base_model_name_or_path = 'nateraw/vit-age-classifier'
+        config = PeftConfig.from_pretrained(repo_name)
+        # base_model_name_or_path = 'nateraw/vit-age-classifier'
         model = AutoModelForImageClassification.from_pretrained(
-            base_model_name_or_path,
+            config.base_model_name_or_path,
             ignore_mismatched_sizes=True,  # provide this in case you're planning to fine-tune an already fine-tuned checkpoint
         )
         model.classifier = nn.Linear(in_features=768, out_features=10, bias=True)

@@ -4,7 +4,7 @@
     "base_model_class": "ViTForImageClassification",
     "parent_library": "transformers.models.vit.modeling_vit"
   },
-  "base_model_name_or_path": "/DATA/jupyter/personal/lora_age/nateraw/vit-age-classifier",
+  "base_model_name_or_path": "nateraw/vit-age-classifier",
   "bias": "none",
   "fan_in_fan_out": false,
   "inference_mode": true,

@@ -1,6 +1,6 @@
 ---
 library_name: peft
-base_model: /DATA/jupyter/personal/lora_age/nateraw/vit-age-classifier
+base_model: nateraw/vit-age-classifier
 ---
 
 # Model Card for Model ID
