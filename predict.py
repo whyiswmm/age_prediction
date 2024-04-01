@@ -1,17 +1,10 @@
 from facenet_pytorch import MTCNN
-# from AgeNet.models import Model
 import torch
-from torchvision import transforms as T
-from PIL import Image
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
-import os
-import argparse
 import re
-from transformers import ViTForImageClassification, ViTImageProcessor, AutoModelForImageClassification
-from peft import PeftConfig, PeftModel, LoraConfig, get_peft_model
-# from transformers import AutoModelForImageClassification, TrainingArguments, Trainer, AutoImageProcessor
+from transformers import ViTImageProcessor, AutoModelForImageClassification
+from peft import PeftConfig, PeftModel, get_peft_model
 import torch.nn as nn
 
 
@@ -25,7 +18,7 @@ class AgeEstimator():
         else:
             self.face_size = face_size   
         self.device = 'cuda' # 默认有cuda，不cuda就直接报错吧
-        repo_name = 'lora_model_100_epoch_10fenlei_0325'
+        repo_name = 'lora_model'
         config = PeftConfig.from_pretrained(repo_name)
         # base_model_name_or_path = 'nateraw/vit-age-classifier'
         model = AutoModelForImageClassification.from_pretrained(
@@ -70,7 +63,7 @@ class AgeEstimator():
         ]
             
     def predict(self, img_path, min_prob = 0.9):
-        image = img_path
+        image = img_path.convert("RGB")
         ndarray_image = np.array(img_path)
         image_shape = ndarray_image.shape
         bboxes, prob = self.facenet_model.detect(image)
